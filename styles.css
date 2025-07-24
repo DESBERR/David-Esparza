@@ -206,3 +206,47 @@ footer {
 .cv-download:hover {
   background-color: #415a77;
 }
+
+/* ----- Ajustes específicos para móvil ----- */
+@media (max-width: 600px) {
+  /* Secciones en columna, sin flex-wrap extraño */
+  .about-content,
+  .project-highlight .highlight-content {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  /* Foto y miniaturas más pequeñas */
+  .about-photo img,
+  .project-highlight .highlight-thumb {
+    width: 80px;
+    height: 80px;
+  }
+
+  /* Texto centrado y sin grandes saltos de línea */
+  .about-text,
+  .project-highlight .highlight-desc {
+    margin-left: 0 !important;
+    text-align: center;
+  }
+  
+  /* Botones y enlaces a todo ancho para evitar “rebotes” */
+  a.project-highlight-link,
+  .cv-download {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Evitar que el embed del PDF sea demasiado alto */
+  .cv-embed embed {
+    height: 300px;
+  }
+
+  /* Nav fija arriba en móvil (opcional) */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+}
