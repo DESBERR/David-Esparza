@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>David Esparza - Ingeniero</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background-color: #0d1b2a;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+    #lang-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #1b263b;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #1b263b;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 14px 20px;
+      display: block;
+    }
+    nav a:hover {
+      background-color: #415a77;
+    }
+    section {
+      display: none;
+      max-width: 900px;
+      margin: auto;
+      padding: 30px 20px;
+      background-color: white;
+    }
+    section.active {
+      display: block;
+    }
+    h2 {
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #1b263b;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="name">David Esparza</h1>
+    <p id="subtitle">Ingeniero en Electrónica y Telecomunicaciones</p>
+    <button id="lang-switch" onclick="toggleLang()">EN</button>
+  </header>
+
+  <nav>
+    <a href="#" onclick="showSection('about')" id="nav-about">Sobre mí</a>
+    <a href="#" onclick="showSection('projects')" id="nav-projects">Proyectos</a>
+    <a href="#" onclick="showSection('cv')" id="nav-cv">Currículum</a>
+  </nav>
+
+  <section id="about" class="active">
+    <h2 id="about-title">Sobre mí</h2>
+    <p id="about-text">
+      Soy un ingeniero apasionado por la tecnología, la investigación y el desarrollo de sistemas innovadores. Me especializo en sistemas embebidos, comunicaciones inalámbricas y diseño electrónico. Siempre estoy buscando aprender más y enfrentar nuevos retos.
+    </p>
+  </section>
+
+  <section id="projects">
+    <h2 id="projects-title">Proyectos</h2>
+    <ul id="projects-list">
+      <li><strong>Bowler Roller Mini:</strong> Versión portable de un clásico juego electromecánico.</li>
+      <li><strong>Red de Drones Autónomos:</strong> Comunicación entre drones usando ESP32.</li>
+      <li><strong>Detector SDR + Heltec:</strong> Sistema de escucha inalámbrica con LoRa y señales IQ.</li>
+    </ul>
+  </section>
+
+  <section id="cv">
+    <h2 id="cv-title">Currículum</h2>
+    <p id="cv-text">Puedes descargar mi currículum en formato PDF <a href="cv_david_esparza.pdf" target="_blank">aquí</a>.</p>
+    <p id="cv-extra">También incluye experiencia en investigación, publicaciones y certificaciones técnicas.</p>
+  </section>
+
+  <footer>
+    <p id="footer-text">&copy; 2025 David Esparza. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+    }
+
+    let lang = 'es';
+    function toggleLang() {
+      lang = lang === 'es' ? 'en' : 'es';
+      document.getElementById('lang-switch').textContent = lang === 'es' ? 'EN' : 'ES';
+
+      const translations = {
+        es: {
+          subtitle: 'Ingeniero en Electrónica y Telecomunicaciones',
+          'nav-about': 'Sobre mí',
+          'nav-projects': 'Proyectos',
+          'nav-cv': 'Currículum',
+          'about-title': 'Sobre mí',
+          'about-text': 'Soy un ingeniero apasionado por la tecnología, la investigación y el desarrollo de sistemas innovadores. Me especializo en sistemas embebidos, comunicaciones inalámbricas y diseño electrónico. Siempre estoy buscando aprender más y enfrentar nuevos retos.',
+          'projects-title': 'Proyectos',
+          'projects-list': '<li><strong>Bowler Roller Mini:</strong> Versión portable de un clásico juego electromecánico.</li><li><strong>Red de Drones Autónomos:</strong> Comunicación entre drones usando ESP32.</li><li><strong>Detector SDR + Heltec:</strong> Sistema de escucha inalámbrica con LoRa y señales IQ.</li>',
+          'cv-title': 'Currículum',
+          'cv-text': 'Puedes descargar mi currículum en formato PDF <a href="cv_david_esparza.pdf" target="_blank">aquí</a>.',
+          'cv-extra': 'También incluye experiencia en investigación, publicaciones y certificaciones técnicas.',
+          'footer-text': '&copy; 2025 David Esparza. Todos los derechos reservados.'
+        },
+        en: {
+          subtitle: 'Engineer in Electronics and Telecommunications',
+          'nav-about': 'About Me',
+          'nav-projects': 'Projects',
+          'nav-cv': 'Resume',
+          'about-title': 'About Me',
+          'about-text': 'I am an engineer passionate about technology, research, and developing innovative systems. I specialize in embedded systems, wireless communications, and electronic design. I am always looking to learn more and face new challenges.',
+          'projects-title': 'Projects',
+          'projects-list': '<li><strong>Bowler Roller Mini:</strong> Portable version of a classic electromechanical game.</li><li><strong>Autonomous Drone Network:</strong> Drone-to-drone communication using ESP32.</li><li><strong>SDR + Heltec Detector:</strong> Wireless listening system with LoRa and IQ signals.</li>',
+          'cv-title': 'Resume',
+          'cv-text': 'You can download my resume in PDF format <a href="cv_david_esparza.pdf" target="_blank">here</a>.',
+          'cv-extra': 'It also includes experience in research, publications, and technical certifications.',
+          'footer-text': '&copy; 2025 David Esparza. All rights reserved.'
+        }
+      };
+
+      const t = translations[lang];
+      for (const id in t) {
+        const el = document.getElementById(id);
+        if (el) {
+          if (id === 'projects-list') {
+            el.innerHTML = t[id];
+          } else {
+            el.textContent = t[id];
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html>
