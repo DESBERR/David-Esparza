@@ -3,107 +3,93 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>David Esparza - Ingeniero</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-    }
-    header {
-      background-color: #0d1b2a;
-      padding: 20px;
-      text-align: center;
-      color: white;
-      position: relative;
-    }
-    #lang-switch {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background-color: #1b263b;
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      background-color: #1b263b;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      padding: 14px 20px;
-      display: block;
-    }
-    nav a:hover {
-      background-color: #415a77;
-    }
-    section {
-      display: none;
-      max-width: 900px;
-      margin: auto;
-      padding: 30px 20px;
-      background-color: white;
-    }
-    section.active {
-      display: block;
-    }
-    h2 {
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 10px;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #1b263b;
-      color: white;
-      margin-top: 40px;
-    }
-  </style>
+  <title>David Esparza Berrozpe - Ingeniero</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
   <header>
-    <h1 id="name">David Esparza</h1>
-    <p id="subtitle">Ingeniero en Electrónica y Telecomunicaciones</p>
+    <h1 id="name">David Esparza Berrozpe</h1>
+    <p id="subtitle">Ingeniero en Sistemas de Telecommunicación e IoT</p>
     <button id="lang-switch" onclick="toggleLang()">EN</button>
+    
   </header>
 
   <nav>
     <a href="#" onclick="showSection('about')" id="nav-about">Sobre mí</a>
     <a href="#" onclick="showSection('projects')" id="nav-projects">Proyectos</a>
-    <a href="#" onclick="showSection('cv')" id="nav-cv">Currículum</a>
+    <a href="#" onclick="showSection('cv')" id="nav-cv">Curriculum Vitae</a>
   </nav>
 
   <section id="about" class="active">
     <h2 id="about-title">Sobre mí</h2>
-    <p id="about-text">
-      Soy un ingeniero apasionado por la tecnología, la investigación y el desarrollo de sistemas innovadores. Me especializo en sistemas embebidos, comunicaciones inalámbricas y diseño electrónico. Siempre estoy buscando aprender más y enfrentar nuevos retos.
-    </p>
+    <div class="about-content">
+      <div class="about-photo">
+        <img src="imgs/soy_yo.jpeg" alt="Foto de David Esparza">
+      </div>
+      <div class="about-text">
+        <p id="about-text">
+          Soy Ingeniero en Telecomunicaciones e Internet de las Cosas (IoT) con experiencia en el diseño y la optimización de sistemas de RF y comunicaciones inalámbricas. He desarrollado redes inteligentes abarcando desde la planificación de enlaces de RF y antenas hasta la implementación de protocolos IoT (LoRaWAN, NB‑IoT, MQTT) y la electrónica embebida. Mi enfoque combina la investigación aplicada en propagación de señales, filtrado y gestión del espectro con la creación de dispositivos conectados que garantizan alta fiabilidad y eficiencia energética. Me apasiona afrontar retos de integración hardware‑software, explorar nuevas tecnologías de radiofrecuencia y colaborar en proyectos multidisciplinares que impulsen la transformación digital.
+        </p>
+      </div>
+    </div>
   </section>
+
 
   <section id="projects">
     <h2 id="projects-title">Proyectos</h2>
-    <ul id="projects-list">
-      <li><strong>Bowler Roller Mini:</strong> Versión portable de un clásico juego electromecánico.</li>
-      <li><strong>Red de Drones Autónomos:</strong> Comunicación entre drones usando ESP32.</li>
-      <li><strong>Detector SDR + Heltec:</strong> Sistema de escucha inalámbrica con LoRa y señales IQ.</li>
-    </ul>
+
+    <!-- Highlight TFM -->
+    <a href="error.html" class="project-highlight-link">
+      <div id="projects-list" class="project-highlight">
+        <h3 class="highlight-title" id="title-drones-iot">Comunicación Aire‑Aire de Drones IoT</h3>
+        <div class="highlight-content">
+          <img
+            src="imgs/Drones.png"
+            alt="Comunicación Aire‑Aire de Drones IoT"
+            class="highlight-thumb"
+          >
+          <div class="highlight-desc">
+            <p id="summary-drones-iot">
+            En este proyecto se desarrolla un enlace totalmente autónomo entre dos drones en vuelo, sin intervención humana, aprovechando la versatilidad de los ESP32 y la baja latencia de ESP‑NOW. 
+            La arquitectura incluye dos UAVs que intercambian coordenadas en tiempo real, un gateway encargado de centralizar esos datos y un servidor ligero que visualiza la posición de ambos vehículos. 
+            Gracias a su diseño modular, resulta sencillo incorporar nuevos nodos y sensores, y la configuración optimizada de la radio asegura un consumo energético mínimo durante los periodos de espera. Las pruebas de campo confirman la sincronización milimétrica y la robustez del sistema en diferentes rangos y condiciones adversas. </p>
+          </div>
+        </div>
+      </div>
+    </a>
+    <!-- Lista de proyectos desplegables -->
+    <a href="error.html" class="project-highlight-link">
+      <div id="projects-list" class="project-highlight">
+        <h3 class="highlight-title" id="title-mmi">Diseño de un Divisor de Potencia en Óptica Integrada (MMI)</h3>
+          <div class="highlight-content">
+            <img
+              src="imgs/Guiaonda.png"
+              alt="Comunicación Aire‑Aire de Drones IoT"
+              class="highlight-thumb"
+            >
+            <div class="highlight-desc">
+              <p id="summary-mmi">
+                Este trabajo en óptica integrada aborda el diseño de un acoplador multimodal (MMI), partiendo de los fundamentos de la guía de ondas dieléctrica y el análisis de acopladores direccionales. 
+                Se estudian los mecanismos de interferencia constructiva y destructiva para dividir la luz incidente en múltiples salidas. 
+                Finalmente, se optimizan parámetros clave—dimensiones, índice de refracción y longitud de onda—para lograr un MMI eficiente y de bajas pérdidas, pensado para comunicaciones ópticas.
+              </p>
+            </div>
+          </div>
+      </div>
+    </a>
   </section>
 
-  <section id="cv">
-    <h2 id="cv-title">Currículum</h2>
-    <p id="cv-text">Puedes descargar mi currículum en formato PDF <a href="cv_david_esparza.pdf" target="_blank">aquí</a>.</p>
-    <p id="cv-extra">También incluye experiencia en investigación, publicaciones y certificaciones técnicas.</p>
+   <section id="cv">
+    <h2 id="cv-title">Curriculum Vitae</h2>
+    <div class="cv-embed">
+      <embed src="imgs/David Esparza Español.pdf" type="application/pdf" width="100%" height="600px" />
+    </div>
+     <!-- Lista de proyectos desplegables 
+    <p id="cv-extra">También incluye experiencia en investigación, publicaciones y certificaciones técnicas.</p> -->
   </section>
 
   <footer>
-    <p id="footer-text">&copy; 2025 David Esparza. Todos los derechos reservados.</p>
+    <p id="footer-text">© 2025 David Esparza Berrozpe. Todos los derechos reservados.</p>
   </footer>
 
   <script>
@@ -121,32 +107,39 @@
 
       const translations = {
         es: {
-          subtitle: 'Ingeniero en Electrónica y Telecomunicaciones',
+          subtitle: 'Ingeniero en Sistemas de Telecommunicación e IoT',
           'nav-about': 'Sobre mí',
           'nav-projects': 'Proyectos',
-          'nav-cv': 'Currículum',
+          'nav-cv': 'Curriculum Vitae',
           'about-title': 'Sobre mí',
-          'about-text': 'Soy un ingeniero apasionado por la tecnología, la investigación y el desarrollo de sistemas innovadores. Me especializo en sistemas embebidos, comunicaciones inalámbricas y diseño electrónico. Siempre estoy buscando aprender más y enfrentar nuevos retos.',
+          'about-text': 'Soy Ingeniero en Telecomunicaciones e Internet de las Cosas (IoT) con experiencia en el diseño y la optimización de sistemas de RF y comunicaciones inalámbricas. He desarrollado redes inteligentes abarcando desde la planificación de enlaces de RF y antenas hasta la implementación de protocolos IoT (LoRaWAN, NB‑IoT, MQTT) y la electrónica embebida. Mi enfoque combina la investigación aplicada en propagación de señales, filtrado y gestión del espectro con la creación de dispositivos conectados que garantizan alta fiabilidad y eficiencia energética. Me apasiona afrontar retos de integración hardware‑software, explorar nuevas tecnologías de radiofrecuencia y colaborar en proyectos multidisciplinares que impulsen la transformación digital.',
           'projects-title': 'Proyectos',
-          'projects-list': '<li><strong>Bowler Roller Mini:</strong> Versión portable de un clásico juego electromecánico.</li><li><strong>Red de Drones Autónomos:</strong> Comunicación entre drones usando ESP32.</li><li><strong>Detector SDR + Heltec:</strong> Sistema de escucha inalámbrica con LoRa y señales IQ.</li>',
-          'cv-title': 'Currículum',
+          'cv-title': 'Curriculum Vitae',
           'cv-text': 'Puedes descargar mi currículum en formato PDF <a href="cv_david_esparza.pdf" target="_blank">aquí</a>.',
           'cv-extra': 'También incluye experiencia en investigación, publicaciones y certificaciones técnicas.',
-          'footer-text': '&copy; 2025 David Esparza. Todos los derechos reservados.'
+          'footer-text': '&copy; 2025 David Esparza Berrozpe. Todos los derechos reservados.',
+          'title-mmi': 'Diseño de un Divisor de Potencia en Óptica Integrada (MMI)',
+          'summary-mmi': 'Este trabajo en óptica integrada aborda el diseño de un acoplador multimodal (MMI), partiendo de los fundamentos de la guía de ondas dieléctrica y el análisis de acopladores direccionales. Se estudian los mecanismos de interferencia constructiva y destructiva para dividir la luz incidente en múltiples salidas. Finalmente, se optimizan parámetros clave—dimensiones, índice de refracción y longitud de onda—para lograr un MMI eficiente y de bajas pérdidas, pensado para comunicaciones ópticas.',
+          'title-drones-iot': 'Comunicación Aire‑Aire de Drones IoT',
+          'summary-drones-iot': 'En este proyecto se desarrolla un enlace totalmente autónomo entre dos drones en vuelo, sin intervención humana, aprovechando la versatilidad de los ESP32 y la baja latencia de ESP‑NOW. La arquitectura incluye dos UAVs que intercambian coordenadas en tiempo real, un gateway encargado de centralizar esos datos y un servidor ligero que visualiza la posición de ambos vehículos. Gracias a su diseño modular, resulta sencillo incorporar nuevos nodos y sensores, y la configuración optimizada de la radio asegura un consumo energético mínimo durante los periodos de espera. Las pruebas de campo confirman la sincronización milimétrica y la robustez del sistema en diferentes rangos y condiciones adversas.'
+          
         },
         en: {
-          subtitle: 'Engineer in Electronics and Telecommunications',
+          subtitle: 'Engineer in Telecommunication Systems and IoT',
           'nav-about': 'About Me',
           'nav-projects': 'Projects',
-          'nav-cv': 'Resume',
+          'nav-cv': 'Curriculum Vitae',
           'about-title': 'About Me',
-          'about-text': 'I am an engineer passionate about technology, research, and developing innovative systems. I specialize in embedded systems, wireless communications, and electronic design. I am always looking to learn more and face new challenges.',
+          'about-text': 'I am a Telecommunications and Internet of Things (IoT) engineer with experience in the design and optimisation of RF and wireless communications systems. I have developed smart networks ranging from RF link and antenna planning to the implementation of IoT protocols (LoRaWAN, NB-IoT, MQTT) and embedded electronics. My approach combines applied research in signal propagation, filtering and spectrum management with the creation of connected devices that ensure high reliability and energy efficiency. I am passionate about tackling hardware-software integration challenges, exploring new RF technologies and collaborating in multidisciplinary projects that drive digital transformation.',
           'projects-title': 'Projects',
-          'projects-list': '<li><strong>Bowler Roller Mini:</strong> Portable version of a classic electromechanical game.</li><li><strong>Autonomous Drone Network:</strong> Drone-to-drone communication using ESP32.</li><li><strong>SDR + Heltec Detector:</strong> Wireless listening system with LoRa and IQ signals.</li>',
-          'cv-title': 'Resume',
+          'cv-title': 'Curriculum Vitae',
           'cv-text': 'You can download my resume in PDF format <a href="cv_david_esparza.pdf" target="_blank">here</a>.',
           'cv-extra': 'It also includes experience in research, publications, and technical certifications.',
-          'footer-text': '&copy; 2025 David Esparza. All rights reserved.'
+          'footer-text': '&copy; 2025 David Esparza Berrozpe. All rights reserved.',
+          'title-mmi': 'Integrated Optical Power Divider Design (MMI)',
+          'summary-mmi':'This work in integrated optics deals with the design of a multimode coupler (MMI), starting from the fundamentals of dielectric waveguide and directional coupler analysis. Constructive and destructive interference mechanisms for splitting incident light into multiple outputs are studied. Finally, key parameters-dimensions, refractive index and wavelength-are optimised to achieve an efficient, low-loss MMI for optical communications.',
+          'title-drones-iot': 'IoT Drone Air-to-Air Communication',
+          'summary-drones-iot': 'This project develops a fully autonomous link between two drones in flight, without human intervention, taking advantage of the versatility of ESP32 and the low latency of ESP-NOW. The architecture includes two UAVs exchanging coordinates in real time, a gateway in charge of centralising this data and a lightweight server that visualises the position of both vehicles. Thanks to its modular design, it is easy to add new nodes and sensors, and the optimised radio configuration ensures minimal power consumption during standby periods. Field tests confirm the millimetre-accurate synchronisation and robustness of the system in different ranges and adverse conditions.'
         }
       };
 
