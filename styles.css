@@ -250,3 +250,59 @@ footer {
     z-index: 10;
   }
 }
+
+/* Bloque TFG */
+#tfg {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+#tfg h2 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  text-align: center;
+  color: #0d1b2a;
+}
+#tfg p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  color: #333;
+}
+.tfg-figure {
+  margin: 0 0 32px;
+  text-align: center;
+}
+.tfg-figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.tfg-figure figcaption {
+  font-size: 0.875rem;
+  color: #666;
+  margin-top: 8px;
+}
+
+/* Botón para atrás */
+.back-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 20px;
+  text-align: left;
+}
+
+.back-button {
+  background-color: #1b263b;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #415a77;
+}
