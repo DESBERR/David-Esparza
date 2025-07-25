@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Óptica Integrada</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <!-- Header con mismo estilo de portfolio -->
+  <header>
+    <h1 id="name">Diseño de un Divisor de Potencia en Óptica Integrada (MMI)</h1>
+    <p id="subtitle">Óptica Integrada</p>
+  </header>
+
+    <!-- Botón de volver atrás -->
+  <div class="back-container">
+    <button onclick="history.back()" class="back-button">← Volver</button>
+  </div>
+  
+  <!-- Contenido profundo del trabajo -->
+  <section id="tfg" class="active">
+    <h2>Descripción del Proyecto</h2>
+    <p>
+      Este TFG investiga el diseño, simulación y optimización de un acoplador
+      <strong>multimodal 1×2 (MMI)</strong> integrado en silicio, orientado a redes
+      ópticas de comunicaciones de alta velocidad. Tras exponer los fundamentos
+      de propagación en guías dieléctricas y teoría de acoplamiento direccional,
+      el foco principal recae en la región MMI, donde múltiples modos interfieren
+      para repartir la señal de entrada en dos salidas con una división 50:50
+      y pérdidas inferiores a 1 dB.
+    </p>
+
+    <figure class="tfg-figure">
+      <img src="imgs/Snell.png" alt="Guía de onda plana en óptica integrada">
+      <figcaption>Figura 1. Confinamiento de luz en guía dieléctrica Si/SiO₂.</figcaption>
+    </figure>
+
+    <p>
+      Mediante simulaciones basadas en métodos de elementos finitos y análisis
+      de parámetros S, se determinaron las dimensiones óptimas de la sección
+      multimodal (anchura y longitud) y de los tapers de entrada/salida. La
+      longitud de onda de operación se fijó en λ = 1550 nm, estándar en
+      telecomunicaciones.
+    </p>
+
+    <figure class="tfg-figure">
+      <img src="imgs/Estructura_mmi.png" alt="Esquema de acoplador MMI 1x2">
+      <figcaption>Figura 2. Geometría del acoplador MMI 1×2 con reparto balanceado.</figcaption>
+    </figure>
+
+    <p>
+      Los resultados muestran una distribución de campo característica en la
+      región MMI, con interferencias constructivas y destructivas que garantizan
+      la división equitativa de potencia. Esto se valida gráficamente y con
+      curvas de S₂₁/S₃₁ frente a la anchura multimodal.
+    </p>
+
+    <figure class="tfg-figure">
+      <img src="imgs/S21_S31_mmi.png" alt="Parámetros S del MMI">
+      <figcaption>Figura 3. Parámetros S en función de la frecuencia del dispositivo final MMI</figcaption>
+    </figure>
+
+    <p>
+      El análisis final de los mapas de campo en la región MMI muestra que, tras inyectar la señal en la entrada y aprovechar las interferencias constructivas y destructivas, la potencia se reparte de forma casi perfectamente equilibrada (≈50:50) entre ambos puertos de salida.
+    </p>
+
+    <figure class="tfg-figure">
+      <img src="imgs/Campos_mmi.png" alt="Distribución de campo en MMI">
+      <figcaption>Figura 4. Distribución de los campos en el acoplador MMI 1x2 50:50</figcaption>
+    </figure>
+  </section>
+
+  <!-- Footer con el mismo estilo -->
+  <footer>
+    <p id="footer-text">© 2025 David Esparza. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
