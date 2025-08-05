@@ -306,3 +306,31 @@ footer {
 .back-button:hover {
   background-color: #415a77;
 }
+
+/* Tablas */
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.comparison-table th,
+.comparison-table td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.comparison-table th {
+  background-color: #1b263b;
+  color: #fff;
+}
+
+.comparison-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.label{
+  text-align: center;
+}

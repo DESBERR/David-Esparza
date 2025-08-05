@@ -2,16 +2,229 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Comunicación Aire‑Aire de Drones IoT</title>
-  <link rel="stylesheet" href="estilos.css"> <!-- si usas un CSS compartido -->
+  <title>Comunicación entre Drones</title>
+  <link rel="stylesheet" href="styles.css"> <!-- si usas un CSS compartido -->
 </head>
 <body>
-  <header><h1>Comunicación Aire‑Aire de Drones IoT</h1></header>
-  <main style="max-width:800px; margin:auto; padding:20px;">
-    <img src="imgs/Drones.png" alt="" style="width:100%; max-width:500px; display:block; margin:0 auto 20px;">
-    <p>En este proyecto se desarrolla un enlace totalmente autónomo entre dos drones en vuelo, sin intervención humana, aprovechando la versatilidad de los ESP32 y la baja latencia de ESP‑NOW. La arquitectura incluye dos UAVs que intercambian coordenadas en tiempo real, un gateway encargado de centralizar esos datos y un servidor ligero que visualiza la posición de ambos vehículos. Gracias a su diseño modular, resulta sencillo incorporar nuevos nodos y sensores, y la configuración optimizada de la radio asegura un consumo energético mínimo durante los periodos de espera. Las pruebas de campo confirman la sincronización milimétrica y la robustez del sistema en diferentes rangos y condiciones adversas.</p>
-    <p><a href="index.html">← Volver a Proyectos</a></p>
-  </main>
-  <footer>© 2025 David Esparza</footer>
+  <!-- Header con mismo estilo de portfolio -->
+  <header>
+    <h1 id="name">Comunicación Aire‑Aire de Drones IoT</h1>
+    <p id="subtitle">IoT</p>
+  </header>
+
+    <!-- Botón de volver atrás -->
+  <div class="back-container">
+    <button onclick="history.back()" class="back-button">← Volver</button>
+  </div>
+  
+  <!-- Contenido profundo del trabajo -->
+  <section id="tfg" class="active">
+    <h2>Descripción del Proyecto</h2>
+    <p>
+      Este proyecto comienza con el montaje físico del dron, integrando tres elementos clave: 
+      la controladora de vuelo Pixhawk Hex Cube Black, el módulo GNSS Here M8N y un 
+      microcontrolador ESP32. La Pixhawk se encarga de controlar motores y estabilización, 
+      mientras que el Here M8N aporta posicionamiento GPS de alta precisión. La ESP32 se conecta 
+      por UART al puerto TELEM de la Pixhawk, actuando como interfaz para leer y enviar datos de 
+      telemetría (HEARTBEAT, SYS_STATUS, ATTITUDE) y permitiendo, a su vez, la comunicación 
+      inalámbrica sobre el dron.
+    </p>
+
+    <figure class="tfg-figure">
+      <img src="imgs/Conexion_ESP32_Pixhawk.png" alt="Conexión ESP32 y Pixhawk por UART">
+      <figcaption>Figura 1. Conexión ESP32 con Pixhawk mediante el puerto TELEM.</figcaption>
+    </figure>
+
+     <p>
+    Para garantizar un enlace directo entre drones con la menor latencia y consumo posible,
+    hemos comparado tres tecnologías inalámbricas habituales en IoT y robótica:  
+    Wi-Fi (TCP/UDP), LoRa y ESP-NOW. Los criterios de evaluación han sido:
+    latencia, consumo energético, facilidad de despliegue y fiabilidad de transmisión.
+    </p>
+    
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Característica</th>
+          <th>Wi-Fi</th>
+          <th>ESP-NOW</th>
+          <th>LoRa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Alcance aproximado</strong></td>
+          <td>50–100 m</td>
+          <td>100–200 m</td>
+          <td>Hasta 5–10 km</td>
+        </tr>
+        <tr>
+          <td><strong>Ancho de banda</strong></td>
+          <td>Alto (50+ Mbps)</td>
+          <td>Bajo (0.25 Mbps)</td>
+          <td>Muy bajo (0.3–50 kbps)</td>
+        </tr>
+        <tr>
+          <td><strong>Latencia</strong></td>
+          <td>Moderada–alta</td>
+          <td>Muy baja (&lt;10 ms)</td>
+          <td>Alta (≥500 ms)</td>
+        </tr>
+        <tr>
+          <td><strong>Consumo energético</strong></td>
+          <td>Alto (≈200 mA TX)</td>
+          <td>Bajo (80–90 mA TX; &lt;5 mA sleep)</td>
+          <td>Muy bajo (&lt;10 mA reposo)</td>
+        </tr>
+        <tr>
+          <td><strong>Infraestructura necesaria</strong></td>
+          <td>Punto de acceso Wi-Fi</td>
+          <td>Ninguna (peer-to-peer)</td>
+          <td>Ninguna</td>
+        </tr>
+        <tr>
+          <td><strong>Tamaño máximo de paquete</strong></td>
+          <td>Grande</td>
+          <td>Limitado (250 B)</td>
+          <td>Muy limitado</td>
+        </tr>
+        <tr>
+          <td><strong>Facilidad de implementación</strong></td>
+          <td>Media</td>
+          <td>Alta</td>
+          <td>Media</td>
+        </tr>
+        <tr>
+          <td><strong>Número de nodos soportados</strong></td>
+          <td>Alto (con router)</td>
+          <td>10–20</td>
+          <td>Bajo–medio</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="label">Tabla 1. Comparativa entre protocolos Wi-Fi, ESP-NOW y LoRa</p>
+
+    <p>
+      Tras este análisis, <strong>ESP-NOW</strong> se eligió como protocolo óptimo porque combina
+      una latencia extremadamente baja (&lt;10 ms) con un consumo moderado y la capacidad
+      de establecer enlaces directos “peer-to-peer” sin necesidad de infraestructura adicional.
+      Además, su límite de 250 bytes por paquete es suficiente para transmitir telemetría
+      esencial (coordenadas, niveles de batería y actitud), y las pruebas de fiabilidad
+      mostraron tasas de entrega superiores al 99 % a 200 m. 
+    </p>
+
+    <p>
+      Por otro lado, la Pixhawk (Hex Cube Black) bajo el firmware PX4 define varios modos de vuelo
+      que determinan el grado de control manual o automático, así como la posibilidad
+      de recibir comandos desde sistemas externos (por ejemplo, una ESP32 vía MAVLink).
+      A continuación presentamos los modos más relevantes y su codificación en el campo
+      <code>custom_mode</code>. La tabla demuestra que únicamente el modo <strong>OFFBOARD</strong> 
+      permite un control completamente autónomo mediante mensajes MAVLink, 
+      por lo que ha sido elegido para llevar a cabo las pruebas.
+   </p>
+
+   <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>Modo (PX4)</th>
+        <th><code>custom_mode</code></th>
+        <th>Descripción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>MANUAL</strong></td>
+        <td>1</td>
+        <td>Piloto controla directamente sin estabilización</td>
+      </tr>
+      <tr>
+        <td><strong>ALTCTL</strong></td>
+        <td>2</td>
+        <td>Control manual con estabilización de actitud y altitud</td>
+      </tr>
+      <tr>
+        <td><strong>POSCTL</strong></td>
+        <td>3</td>
+        <td>Estabilización completa con control automático de posición y altitud</td>
+      </tr>
+      <tr>
+        <td><strong>AUTO:MISSION</strong></td>
+        <td>4</td>
+        <td>Vuelo autónomo según misión cargada</td>
+      </tr>
+      <tr>
+        <td><strong>AUTO:LOITER</strong></td>
+        <td>5</td>
+        <td>Mantiene posición y altitud cuando no hay input del piloto</td>
+      </tr>
+      <tr>
+        <td><strong>OFFBOARD</strong></td>
+        <td><strong>6</strong></td>
+        <td><strong>Control total desde sistema externo (ESP32/MAVLink)</strong></td>
+      </tr>
+      <tr>
+        <td><strong>STABILIZED</strong></td>
+        <td>7</td>
+        <td>Manual asistido con estabilización de ejes (sin control de posición)</td>
+      </tr>
+      <tr>
+        <td><strong>RATTITUDE</strong></td>
+        <td>8</td>
+        <td>Intermedio entre MANUAL y STABILIZED con límite suave de ángulo</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="label">Tabla 2. Modos de vuelo definidos por PX4 y su equivalencia en <code>custom_mode</code>.</p>
+
+    <p>
+    La solución desarrollada consta de cuatro componentes principales que interactúan para ofrecer un enlace aire-aire totalmente autónomo y su monitorización en tiempo real:
+  </p>
+  <ul>
+    <li>
+      <strong>Dron Servidor</strong>: equipado con Pixhawk, GPS Here M8N y ESP32. Publica continuamente su posición y telemetría (HEARTBEAT, SYS_STATUS, ATTITUDE) mediante ESP-NOW.
+    </li>
+    <li>
+      <strong>Dron Cliente</strong>: con la misma configuración hardware, recibe los paquetes ESP-NOW del servidor y calcula en cada iteración la diferencia de coordenadas. Mediante funciones trigonométricas (tangente para el ángulo de rumbo y fórmula de Haversine para la distancia), genera setpoints OFFBOARD que ajustan su posición y orientación de forma automática.
+    </li>
+    <li>
+      <strong>Gateway</strong>: un tercer ESP32 recoge por ESP-NOW los datos de ambos drones y los envía por UART a un servidor Python local, sin interferir en el enlace directo aire-aire.
+    </li>
+    <li>
+      <strong>Servidor Python &amp; Interfaz Gráfica Web</strong>: el servidor lee la UART, parsea los mensajes de cada UAV y expone una API WebSocket. La interfaz web (HTML/JS) consume estos datos para mostrar en un mapa interactivo las trayectorias, distancias relativas y estado en tiempo real de los drones.
+    </li>
+  </ul>
+
+  <figure class="tfg-figure">
+    <img src="imgs/architecture_diagram.png" alt="Diagrama de arquitectura final">
+    <figcaption>Figura 2. Diagrama de la arquitectura final: dron servidor,
+       dron cliente, gateway (UART) y servidor/GUI.</figcaption>
+  </figure>
+
+  <p>
+  En la siguiente vista de la interfaz web, el panel lateral despliega cada dron participante 
+  junto a sus métricas clave (latitud, longitud, altitud y estado de batería). A su derecha, 
+  el mapa interactivo muestra en tiempo real las trayectorias de los UAV; al hacer clic en cualquier marcador,
+   se revelan sus coordenadas GPS y altitud instantánea.
+  </p>
+
+
+  <figure class="tfg-figure">
+    <img src="imgs/gui_screenshot.png" alt="Captura de la interfaz gráfica de monitorización">
+    <figcaption>
+      Figura 3. Captura de la interfaz web: mapa interactivo con posición de dron servidor (azul)
+      y dron cliente (rojo).
+    </figcaption>
+  </figure>
+
+    
+  </section>
+    
+
+
+  <!-- Footer con el mismo estilo -->
+  <footer>
+    <p id="footer-text">© 2025 David Esparza. Todos los derechos reservados.</p>
+  </footer>
 </body>
 </html>
+
