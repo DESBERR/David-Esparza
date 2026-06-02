@@ -183,13 +183,33 @@
       </div>
     </section>
 
-    <section id="cv" class="content-section glass-card reveal">
+    <section id="cv" class="content-section glass-card reveal cv-section">
       <div class="section-heading centered">
         <p class="eyebrow" id="cv-kicker">Trayectoria</p>
         <h2 id="cv-title">Curriculum Vitae</h2>
-        <p id="cv-intro">Consulta el CV integrado en la web o ábrelo desde el navegador.</p>
+        <p id="cv-intro">El CV no se muestra de primeras para mantener la página limpia. Puedes consultarlo cuando lo necesites.</p>
       </div>
-      <div class="cv-embed">
+
+      <div class="cv-card">
+        <div class="cv-icon" aria-hidden="true">
+          <span></span>
+        </div>
+        <div class="cv-card-copy">
+          <p class="cv-label" id="cv-label">Documento profesional</p>
+          <h3 id="cv-card-title">CV técnico de David Esparza</h3>
+          <p id="cv-card-text">Formación, experiencia, proyectos RF/IoT, sistemas embebidos y comunicaciones.</p>
+        </div>
+        <div class="cv-actions">
+          <button type="button" class="primary-button cv-toggle" id="cv-toggle" onclick="toggleCV()">Consultar CV</button>
+          <a class="secondary-button" id="cv-open" href="imgs/David Esparza Español.pdf" target="_blank" rel="noopener">Abrir PDF</a>
+        </div>
+      </div>
+
+      <div class="cv-viewer" id="cv-viewer" aria-hidden="true">
+        <div class="cv-viewer-header">
+          <span id="cv-viewer-title">Vista previa del CV</span>
+          <button type="button" class="ghost-button cv-close" onclick="toggleCV(false)">Cerrar</button>
+        </div>
         <embed src="imgs/David Esparza Español.pdf" type="application/pdf" width="100%" height="640px" />
       </div>
     </section>
@@ -271,6 +291,26 @@
       });
     });
 
+    function toggleCV(forceState) {
+      const viewer = document.getElementById('cv-viewer');
+      const button = document.getElementById('cv-toggle');
+      if (!viewer || !button) return;
+
+      const shouldOpen = typeof forceState === 'boolean'
+        ? forceState
+        : !viewer.classList.contains('open');
+
+      viewer.classList.toggle('open', shouldOpen);
+      viewer.setAttribute('aria-hidden', String(!shouldOpen));
+      button.textContent = shouldOpen
+        ? (lang === 'es' ? 'Ocultar CV' : 'Hide resume')
+        : (lang === 'es' ? 'Consultar CV' : 'View resume');
+
+      if (shouldOpen) {
+        setTimeout(() => viewer.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+      }
+    }
+
     let lang = 'es';
     function toggleLang() {
       lang = lang === 'es' ? 'en' : 'es';
@@ -295,7 +335,7 @@
           'title-antidron': 'Sistema Antidron para Guerra Electrónica',
           'summary-antidron': 'Detección sectorial de amenazas aéreas mediante análisis RF y reporte a una plataforma C2 para mejorar la conciencia situacional.',
           'skills-kicker': 'Stack técnico', 'skills-title': 'Tecnologías y áreas de trabajo',
-          'cv-kicker': 'Trayectoria', 'cv-title': 'Curriculum Vitae', 'cv-intro': 'Consulta el CV integrado en la web o ábrelo desde el navegador.',
+          'cv-kicker': 'Trayectoria', 'cv-title': 'Curriculum Vitae', 'cv-intro': 'El CV no se muestra de primeras para mantener la página limpia. Puedes consultarlo cuando lo necesites.', 'cv-label': 'Documento profesional', 'cv-card-title': 'CV técnico de David Esparza', 'cv-card-text': 'Formación, experiencia, proyectos RF/IoT, sistemas embebidos y comunicaciones.', 'cv-toggle': 'Consultar CV', 'cv-open': 'Abrir PDF', 'cv-viewer-title': 'Vista previa del CV',
           'footer-text': '© 2025 David Esparza Berrozpe. Todos los derechos reservados.'
         },
         en: {
@@ -315,7 +355,7 @@
           'title-antidron': 'Counter‑Drone System for Electronic Warfare',
           'summary-antidron': 'Sector-based aerial threat detection through RF analysis and C2 reporting to improve situational awareness.',
           'skills-kicker': 'Tech stack', 'skills-title': 'Technologies and areas of work',
-          'cv-kicker': 'Career', 'cv-title': 'Curriculum Vitae', 'cv-intro': 'Check the embedded resume or open it directly in the browser.',
+          'cv-kicker': 'Career', 'cv-title': 'Curriculum Vitae', 'cv-intro': 'The resume is hidden by default to keep the page clean. You can open it whenever needed.', 'cv-label': 'Professional document', 'cv-card-title': 'David Esparza technical resume', 'cv-card-text': 'Education, experience, RF/IoT projects, embedded systems and communications.', 'cv-toggle': 'View resume', 'cv-open': 'Open PDF', 'cv-viewer-title': 'Resume preview',
           'footer-text': '© 2025 David Esparza Berrozpe. All rights reserved.'
         }
       };
@@ -325,6 +365,12 @@
         const el = document.getElementById(id);
         if (el) el.textContent = t[id];
       });
+
+      const viewer = document.getElementById('cv-viewer');
+      const cvButton = document.getElementById('cv-toggle');
+      if (viewer && cvButton && viewer.classList.contains('open')) {
+        cvButton.textContent = lang === 'es' ? 'Ocultar CV' : 'Hide resume';
+      }
     }
   </script>
 </body>
