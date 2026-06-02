@@ -3,182 +3,328 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>David Esparza Berrozpe - Ingeniero</title>
-  <link rel="stylesheet" href="styles.css"/>
+  <title>David Esparza Berrozpe | RF · IoT · Defensa</title>
+  <meta name="description" content="Portfolio técnico de David Esparza Berrozpe: telecomunicaciones, RF, IoT, drones y sistemas de defensa." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header>
-    <h1 id="name">David Esparza Berrozpe</h1>
-    <p id="subtitle">Ingeniero en Sistemas de Telecomunicación e IoT</p>
-    <button id="lang-switch" onclick="toggleLang()">EN</button>
-    
-  </header>
+<body class="home-page">
+  <canvas id="signal-canvas" aria-hidden="true"></canvas>
+  <div class="noise-layer" aria-hidden="true"></div>
+  <div class="orb orb-one" aria-hidden="true"></div>
+  <div class="orb orb-two" aria-hidden="true"></div>
 
-  <nav>
-    <a href="#" onclick="showSection('about')" id="nav-about">Sobre mí</a>
-    <a href="#" onclick="showSection('projects')" id="nav-projects">Proyectos</a>
-    <a href="#" onclick="showSection('cv')" id="nav-cv">Curriculum Vitae</a>
-  </nav>
+  <div class="ambient-drone" aria-hidden="true">
+    <svg viewBox="0 0 240 140" role="presentation">
+      <g class="drone-rotor rotor-front-left">
+        <circle cx="52" cy="38" r="18" class="rotor-ring" />
+        <rect x="32" y="36" width="40" height="4" rx="2" class="rotor-blade" />
+        <rect x="50" y="18" width="4" height="40" rx="2" class="rotor-blade" />
+      </g>
+      <g class="drone-rotor rotor-front-right">
+        <circle cx="188" cy="38" r="18" class="rotor-ring" />
+        <rect x="168" y="36" width="40" height="4" rx="2" class="rotor-blade" />
+        <rect x="186" y="18" width="4" height="40" rx="2" class="rotor-blade" />
+      </g>
+      <g class="drone-rotor rotor-back-left">
+        <circle cx="82" cy="108" r="18" class="rotor-ring" />
+        <rect x="62" y="106" width="40" height="4" rx="2" class="rotor-blade" />
+        <rect x="80" y="88" width="4" height="40" rx="2" class="rotor-blade" />
+      </g>
+      <g class="drone-rotor rotor-back-right">
+        <circle cx="158" cy="108" r="18" class="rotor-ring" />
+        <rect x="138" y="106" width="40" height="4" rx="2" class="rotor-blade" />
+        <rect x="156" y="88" width="4" height="40" rx="2" class="rotor-blade" />
+      </g>
+      <path d="M72 50 L111 68 L120 58 L129 68 L168 50" class="drone-arm" />
+      <path d="M94 98 L114 74 L126 74 L146 98" class="drone-arm" />
+      <rect x="92" y="56" width="56" height="28" rx="14" class="drone-body" />
+      <rect x="108" y="84" width="24" height="12" rx="6" class="drone-body drone-tail" />
+      <circle cx="120" cy="70" r="6" class="drone-core" />
+      <circle cx="120" cy="94" r="5" class="drone-sensor" />
+    </svg>
+  </div>
 
-  <section id="about" class="active">
-    <h2 id="about-title">Sobre mí</h2>
-    <div class="about-content">
-      <div class="about-photo">
-        <img src="imgs/soy_yo.jpeg" alt="Foto de David Esparza">
+  <header class="hero" id="top">
+    <nav class="main-nav glass-card" aria-label="Navegación principal">
+      <a href="#top" class="brand">
+        <span class="brand-mark">DE</span>
+        <span>David Esparza</span>
+      </a>
+      <div class="nav-links">
+        <a href="#about" id="nav-about">Sobre mí</a>
+        <a href="#projects" id="nav-projects">Proyectos</a>
+        <a href="#skills" id="nav-skills">Stack técnico</a>
+        <a href="#cv" id="nav-cv">CV</a>
       </div>
-      <div class="about-text">
-        <p id="about-text">
-          Soy Ingeniero en Telecomunicaciones e Internet de las Cosas (IoT) con experiencia en el diseño y la optimización de sistemas de RF y comunicaciones inalámbricas. He desarrollado redes inteligentes abarcando desde la planificación de enlaces de RF y antenas hasta la implementación de protocolos IoT (LoRaWAN, NB‑IoT, MQTT) y la electrónica embebida. Mi enfoque combina la investigación aplicada en propagación de señales, filtrado y gestión del espectro con la creación de dispositivos conectados que garantizan alta fiabilidad y eficiencia energética. Me apasiona afrontar retos de integración hardware‑software, explorar nuevas tecnologías de radiofrecuencia y colaborar en proyectos multidisciplinares que impulsen la transformación digital.
+      <button id="lang-switch" class="ghost-button" onclick="toggleLang()">EN</button>
+    </nav>
+
+    <div class="hero-grid">
+      <div class="hero-copy reveal">
+        <p class="eyebrow" id="eyebrow">RF · IoT · Sistemas embarcados · Defensa</p>
+        <h1 id="name">David Esparza Berrozpe</h1>
+        <p class="hero-subtitle" id="subtitle">Ingeniero en Sistemas de Telecomunicación e IoT</p>
+        <p class="hero-description" id="hero-description">
+          Diseño soluciones donde el espectro radioeléctrico, la electrónica embebida y el software se convierten en sistemas reales: detección RF, comunicaciones UAV, sensores IoT y monitorización operativa.
         </p>
+        <div class="hero-actions">
+          <a href="#projects" class="primary-button" id="cta-projects">Ver proyectos</a>
+          <a href="#cv" class="secondary-button" id="cta-cv">Ver CV</a>
+        </div>
+      </div>
+
+      <div class="radar-panel glass-card reveal" aria-label="Visualización decorativa de radar RF">
+        <div class="radar-screen">
+          <span class="radar-grid"></span>
+          <span class="sweep-arm"><span class="sweep-beam"></span><span class="sweep-line"></span></span>
+          <span class="ring ring-1"></span>
+          <span class="ring ring-2"></span>
+          <span class="ring ring-3"></span>
+          <span class="blip blip-1"></span>
+          <span class="blip blip-2"></span>
+          <span class="blip blip-3"></span>
+          <span class="crosshair horizontal"></span>
+          <span class="crosshair vertical"></span>
+          <span class="radar-center"></span>
+        </div>
+        <div class="telemetry">
+          <div><span>FOCUS</span><strong>Counter‑UAS · IoT · RF</strong></div>
+          <div><span>STATUS</span><strong class="status-dot">Disponible para proyectos</strong></div>
+        </div>
       </div>
     </div>
-  </section>
+  </header>
 
-
-  <section id="projects">
-    <h2 id="projects-title">Proyectos</h2>
-
-    <!-- Highlight TFM -->
-    <div id="projects-list">
-    <a href="drones.html" class="project-highlight-link">
-      <div class="project-highlight">
-        <h3 class="highlight-title" id="title-drones-iot">Comunicación Aire‑Aire de Drones IoT</h3>
-        <div class="highlight-content">
-          <img
-            src="imgs/Drones.png"
-            alt="Comunicación Aire‑Aire de Drones IoT"
-            class="highlight-thumb"
-          >
-          <div class="highlight-desc">
-            <p id="summary-drones-iot">
-            En este proyecto se desarrolla un enlace totalmente autónomo entre dos drones en vuelo, sin intervención humana, aprovechando la versatilidad de los ESP32 y la baja latencia de ESP‑NOW. 
-            La arquitectura incluye dos UAVs que intercambian coordenadas en tiempo real, un gateway encargado de centralizar esos datos y un servidor ligero que visualiza la posición de ambos vehículos. 
-            Gracias a su diseño modular, resulta sencillo incorporar nuevos nodos y sensores, y la configuración optimizada de la radio asegura un consumo energético mínimo durante los periodos de espera. Las pruebas de campo confirman la sincronización milimétrica y la robustez del sistema en diferentes rangos y condiciones adversas. </p>
+  <main>
+    <section id="about" class="content-section glass-card reveal">
+      <div class="section-heading">
+        <p class="eyebrow" id="about-kicker">Perfil técnico</p>
+        <h2 id="about-title">Sobre mí</h2>
+      </div>
+      <div class="about-content">
+        <div class="about-photo">
+          <img src="imgs/soy_yo.jpeg" alt="Foto de David Esparza" />
+          <span class="photo-glow"></span>
+        </div>
+        <div class="about-text">
+          <p id="about-text">
+            Soy Ingeniero en Telecomunicaciones e Internet de las Cosas (IoT) con experiencia en el diseño y la optimización de sistemas de RF y comunicaciones inalámbricas. He desarrollado redes inteligentes abarcando desde la planificación de enlaces de RF y antenas hasta la implementación de protocolos IoT (LoRaWAN, NB‑IoT, MQTT) y la electrónica embebida. Mi enfoque combina la investigación aplicada en propagación de señales, filtrado y gestión del espectro con la creación de dispositivos conectados que garantizan alta fiabilidad y eficiencia energética. Me apasiona afrontar retos de integración hardware‑software, explorar nuevas tecnologías de radiofrecuencia y colaborar en proyectos multidisciplinares que impulsen la transformación digital.
+          </p>
+          <div class="quick-stats" aria-label="Resumen de experiencia">
+            <div><strong>RF</strong><span>Captura, análisis y espectro</span></div>
+            <div><strong>IoT</strong><span>LoRaWAN · MQTT · ESP32</span></div>
+            <div><strong>UAV</strong><span>Drones, telemetría y C2</span></div>
           </div>
         </div>
       </div>
-    </a>
-    <!-- Lista de proyectos desplegables -->
-    <a href="mmi.html" class="project-highlight-link">
-      <div class="project-highlight">
-        <h3 class="highlight-title" id="title-mmi">Diseño de un Divisor de Potencia en Óptica Integrada (MMI)</h3>
-          <div class="highlight-content">
-            <img
-              src="imgs/Guiaonda.png"
-              alt="Comunicación Aire‑Aire de Drones IoT"
-              class="highlight-thumb"
-            >
-            <div class="highlight-desc">
-              <p id="summary-mmi">
-                Este trabajo en óptica integrada aborda el diseño de un acoplador multimodal (MMI), partiendo de los fundamentos de la guía de ondas dieléctrica y el análisis de acopladores direccionales. 
-                Se estudian los mecanismos de interferencia constructiva y destructiva para dividir la luz incidente en múltiples salidas. 
-                Finalmente, se optimizan parámetros clave—dimensiones, índice de refracción y longitud de onda—para lograr un MMI eficiente y de bajas pérdidas, pensado para comunicaciones ópticas.
-              </p>
-            </div>
-          </div>
-      </div>
-    </a>
-    <!-- Lista de proyectos desplegables -->
-     <!-- Lista de proyectos desplegables -->
-    <a href="antidron.html" class="project-highlight-link">
-      <div class="project-highlight">
-        <h3 class="highlight-title" id="title-antidron">Sistema Antidron para Guerra Electrónica</h3>
-          <div class="highlight-content">
-            <img
-              src="imgs/CERVUS.png"
-              alt="Sistema Antidron para Guerra Electrónica"
-              class="highlight-thumb"
-            >
-            <div class="highlight-desc">
-              <p id="summary-antidron">
-                Sistema antidron orientado a la detección sectorial de amenazas aéreas, capaz de reportar la información a una plataforma C2 para su visualización y seguimiento en tiempo real. La solución permite centralizar las alertas, mejorar la conciencia situacional y facilitar la toma de decisiones ante posibles incursiones de drones.
+    </section>
 
-              </p>
-            </div>
-          </div>
+    <section id="projects" class="content-section reveal">
+      <div class="section-heading centered">
+        <p class="eyebrow" id="projects-kicker">Trabajo aplicado</p>
+        <h2 id="projects-title">Proyectos destacados</h2>
+        <p id="projects-intro">Tres líneas que resumen mi perfil: drones, radiofrecuencia, sistemas embebidos y comunicaciones de alto valor operativo.</p>
       </div>
-    </a>
-    </div>
-  </section>
 
-   <section id="cv">
-    <h2 id="cv-title">Curriculum Vitae</h2>
-    <div class="cv-embed">
-      <embed src="imgs/David Esparza Español.pdf" type="application/pdf" width="100%" height="600px" />
-    </div>
-     <!-- Lista de proyectos desplegables 
-    <p id="cv-extra">También incluye experiencia en investigación, publicaciones y certificaciones técnicas.</p> -->
-  </section>
+      <div id="projects-list" class="project-grid">
+        <a href="drones.html" class="project-card tilt-card">
+          <span class="project-number">01</span>
+          <img src="imgs/Drones.png" alt="Comunicación Aire‑Aire de Drones IoT" />
+          <div class="project-overlay"></div>
+          <div class="project-copy">
+            <p class="project-tag">UAV · ESP‑NOW · MAVLink</p>
+            <h3 id="title-drones-iot">Comunicación Aire‑Aire de Drones IoT</h3>
+            <p id="summary-drones-iot">Enlace autónomo entre drones con ESP32, telemetría en tiempo real, gateway y visualización web para seguimiento operativo.</p>
+          </div>
+        </a>
+
+        <a href="mmi.html" class="project-card tilt-card">
+          <span class="project-number">02</span>
+          <img src="imgs/Guiaonda.png" alt="Diseño de un Divisor de Potencia en Óptica Integrada" />
+          <div class="project-overlay"></div>
+          <div class="project-copy">
+            <p class="project-tag">Óptica · Simulación · Comunicaciones</p>
+            <h3 id="title-mmi">Diseño de un Divisor de Potencia en Óptica Integrada (MMI)</h3>
+            <p id="summary-mmi">Diseño y optimización de un acoplador multimodal MMI 1×2 para reparto eficiente de potencia en redes ópticas.</p>
+          </div>
+        </a>
+
+        <a href="antidron.html" class="project-card tilt-card featured-card">
+          <span class="project-number">03</span>
+          <img src="imgs/CERVUS.png" alt="Sistema Antidron para Guerra Electrónica" />
+          <div class="project-overlay"></div>
+          <div class="project-copy">
+            <p class="project-tag">Defensa · SDR · Counter‑UAS</p>
+            <h3 id="title-antidron">Sistema Antidron para Guerra Electrónica</h3>
+            <p id="summary-antidron">Detección sectorial de amenazas aéreas mediante análisis RF y reporte a una plataforma C2 para mejorar la conciencia situacional.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="skills" class="content-section glass-card reveal">
+      <div class="section-heading">
+        <p class="eyebrow" id="skills-kicker">Stack técnico</p>
+        <h2 id="skills-title">Tecnologías y áreas de trabajo</h2>
+      </div>
+      <div class="skills-layout">
+        <div class="terminal-card" aria-label="Terminal decorativa">
+          <div class="terminal-bar"><span></span><span></span><span></span></div>
+          <pre><code>&gt; scan --band 5.8GHz
+[OK] espectro capturado
+&gt; classify --signal drone_rf
+[OK] patrón compatible detectado
+&gt; publish --mqtt /c2/alerts
+[OK] evento enviado</code></pre>
+        </div>
+        <div class="skill-cloud">
+          <span>SDR</span><span>RF Planning</span><span>LoRaWAN</span><span>NB‑IoT</span><span>MQTT</span><span>ESP32</span><span>Pixhawk</span><span>MAVLink</span><span>Python</span><span>MATLAB</span><span>Antenas</span><span>C2</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="cv" class="content-section glass-card reveal">
+      <div class="section-heading centered">
+        <p class="eyebrow" id="cv-kicker">Trayectoria</p>
+        <h2 id="cv-title">Curriculum Vitae</h2>
+        <p id="cv-intro">Consulta el CV integrado en la web o ábrelo desde el navegador.</p>
+      </div>
+      <div class="cv-embed">
+        <embed src="imgs/David Esparza Español.pdf" type="application/pdf" width="100%" height="640px" />
+      </div>
+    </section>
+  </main>
 
   <footer>
-    <p id="footer-text">© 2025 David Esparza Berrozpe. Todos los derechos reservados.</p>
+    <p id="footer-text">© 2025 David Esparza Berrozpe. Todos los derechos reservados.</p>
   </footer>
 
   <script>
-    function showSection(id) {
-      document.querySelectorAll('section').forEach(section => {
-        section.classList.remove('active');
-      });
-      document.getElementById(id).classList.add('active');
+    const canvas = document.getElementById('signal-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      particles = Array.from({ length: Math.min(90, Math.floor(window.innerWidth / 18)) }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        r: Math.random() * 1.8 + 0.5
+      }));
     }
+
+    function animateSignals() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'rgba(88, 166, 255, 0.7)';
+      ctx.strokeStyle = 'rgba(88, 166, 255, 0.12)';
+      particles.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        for (let j = i + 1; j < particles.length; j++) {
+          const q = particles[j];
+          const d = Math.hypot(p.x - q.x, p.y - q.y);
+          if (d < 125) {
+            ctx.globalAlpha = 1 - d / 125;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+        }
+      });
+      requestAnimationFrame(animateSignals);
+    }
+
+    resizeCanvas();
+    animateSignals();
+    window.addEventListener('resize', resizeCanvas);
+
+    document.querySelectorAll('.reveal').forEach(el => {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.14 });
+      observer.observe(el);
+    });
+
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rotateX = ((y / rect.height) - 0.5) * -7;
+        const rotateY = ((x / rect.width) - 0.5) * 7;
+        card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
 
     let lang = 'es';
     function toggleLang() {
       lang = lang === 'es' ? 'en' : 'es';
+      document.documentElement.lang = lang;
       document.getElementById('lang-switch').textContent = lang === 'es' ? 'EN' : 'ES';
 
       const translations = {
         es: {
-          subtitle: 'Ingeniero en Sistemas de Telecommunicación e IoT',
-          'nav-about': 'Sobre mí',
-          'nav-projects': 'Proyectos',
-          'nav-cv': 'Curriculum Vitae',
-          'about-title': 'Sobre mí',
+          'nav-about': 'Sobre mí', 'nav-projects': 'Proyectos', 'nav-skills': 'Stack técnico', 'nav-cv': 'CV',
+          eyebrow: 'RF · IoT · Sistemas embarcados · Defensa',
+          subtitle: 'Ingeniero en Sistemas de Telecomunicación e IoT',
+          'hero-description': 'Diseño soluciones donde el espectro radioeléctrico, la electrónica embebida y el software se convierten en sistemas reales: detección RF, comunicaciones UAV, sensores IoT y monitorización operativa.',
+          'cta-projects': 'Ver proyectos', 'cta-cv': 'Ver CV',
+          'about-kicker': 'Perfil técnico', 'about-title': 'Sobre mí',
           'about-text': 'Soy Ingeniero en Telecomunicaciones e Internet de las Cosas (IoT) con experiencia en el diseño y la optimización de sistemas de RF y comunicaciones inalámbricas. He desarrollado redes inteligentes abarcando desde la planificación de enlaces de RF y antenas hasta la implementación de protocolos IoT (LoRaWAN, NB‑IoT, MQTT) y la electrónica embebida. Mi enfoque combina la investigación aplicada en propagación de señales, filtrado y gestión del espectro con la creación de dispositivos conectados que garantizan alta fiabilidad y eficiencia energética. Me apasiona afrontar retos de integración hardware‑software, explorar nuevas tecnologías de radiofrecuencia y colaborar en proyectos multidisciplinares que impulsen la transformación digital.',
-          'projects-title': 'Proyectos',
-          'cv-title': 'Curriculum Vitae',
-          'cv-text': 'Puedes descargar mi currículum en formato PDF <a href="cv_david_esparza.pdf" target="_blank">aquí</a>.',
-          'cv-extra': 'También incluye experiencia en investigación, publicaciones y certificaciones técnicas.',
-          'footer-text': '&copy; 2025 David Esparza Berrozpe. Todos los derechos reservados.',
-          'title-mmi': 'Diseño de un Divisor de Potencia en Óptica Integrada (MMI)',
-          'summary-mmi': 'Este trabajo en óptica integrada aborda el diseño de un acoplador multimodal (MMI), partiendo de los fundamentos de la guía de ondas dieléctrica y el análisis de acopladores direccionales. Se estudian los mecanismos de interferencia constructiva y destructiva para dividir la luz incidente en múltiples salidas. Finalmente, se optimizan parámetros clave—dimensiones, índice de refracción y longitud de onda—para lograr un MMI eficiente y de bajas pérdidas, pensado para comunicaciones ópticas.',
+          'projects-kicker': 'Trabajo aplicado', 'projects-title': 'Proyectos destacados',
+          'projects-intro': 'Tres líneas que resumen mi perfil: drones, radiofrecuencia, sistemas embebidos y comunicaciones de alto valor operativo.',
           'title-drones-iot': 'Comunicación Aire‑Aire de Drones IoT',
-          'summary-drones-iot': 'En este proyecto se desarrolla un enlace totalmente autónomo entre dos drones en vuelo, sin intervención humana, aprovechando la versatilidad de los ESP32 y la baja latencia de ESP‑NOW. La arquitectura incluye dos UAVs que intercambian coordenadas en tiempo real, un gateway encargado de centralizar esos datos y un servidor ligero que visualiza la posición de ambos vehículos. Gracias a su diseño modular, resulta sencillo incorporar nuevos nodos y sensores, y la configuración optimizada de la radio asegura un consumo energético mínimo durante los periodos de espera. Las pruebas de campo confirman la sincronización milimétrica y la robustez del sistema en diferentes rangos y condiciones adversas.',
-          'title-antidron': 'Counter-Drone System for Electronic Warfare',
-          'summary-antidron': 'Counter-drone system focused on sector-based detection of aerial threats, reporting information to a C2 platform for real-time visualization and monitoring. The solution centralizes alerts, improves situational awareness and supports decision-making against potential drone incursions.'
+          'summary-drones-iot': 'Enlace autónomo entre drones con ESP32, telemetría en tiempo real, gateway y visualización web para seguimiento operativo.',
+          'title-mmi': 'Diseño de un Divisor de Potencia en Óptica Integrada (MMI)',
+          'summary-mmi': 'Diseño y optimización de un acoplador multimodal MMI 1×2 para reparto eficiente de potencia en redes ópticas.',
+          'title-antidron': 'Sistema Antidron para Guerra Electrónica',
+          'summary-antidron': 'Detección sectorial de amenazas aéreas mediante análisis RF y reporte a una plataforma C2 para mejorar la conciencia situacional.',
+          'skills-kicker': 'Stack técnico', 'skills-title': 'Tecnologías y áreas de trabajo',
+          'cv-kicker': 'Trayectoria', 'cv-title': 'Curriculum Vitae', 'cv-intro': 'Consulta el CV integrado en la web o ábrelo desde el navegador.',
+          'footer-text': '© 2025 David Esparza Berrozpe. Todos los derechos reservados.'
         },
         en: {
-          subtitle: 'Engineer in Telecommunication Systems and IoT',
-          'nav-about': 'About Me',
-          'nav-projects': 'Projects',
-          'nav-cv': 'Curriculum Vitae',
-          'about-title': 'About Me',
-          'about-text': 'I am a Telecommunications and Internet of Things (IoT) engineer with experience in the design and optimisation of RF and wireless communications systems. I have developed smart networks ranging from RF link and antenna planning to the implementation of IoT protocols (LoRaWAN, NB-IoT, MQTT) and embedded electronics. My approach combines applied research in signal propagation, filtering and spectrum management with the creation of connected devices that ensure high reliability and energy efficiency. I am passionate about tackling hardware-software integration challenges, exploring new RF technologies and collaborating in multidisciplinary projects that drive digital transformation.',
-          'projects-title': 'Projects',
-          'cv-title': 'Curriculum Vitae',
-          'cv-text': 'You can download my resume in PDF format <a href="cv_david_esparza.pdf" target="_blank">here</a>.',
-          'cv-extra': 'It also includes experience in research, publications, and technical certifications.',
-          'footer-text': '&copy; 2025 David Esparza Berrozpe. All rights reserved.',
+          'nav-about': 'About', 'nav-projects': 'Projects', 'nav-skills': 'Tech stack', 'nav-cv': 'Resume',
+          eyebrow: 'RF · IoT · Embedded systems · Defence',
+          subtitle: 'Telecommunication Systems and IoT Engineer',
+          'hero-description': 'I design solutions where the radio spectrum, embedded electronics and software become real systems: RF detection, UAV communications, IoT sensors and operational monitoring.',
+          'cta-projects': 'View projects', 'cta-cv': 'View resume',
+          'about-kicker': 'Technical profile', 'about-title': 'About me',
+          'about-text': 'I am a Telecommunications and Internet of Things (IoT) engineer with experience in the design and optimisation of RF and wireless communications systems. I have developed smart networks ranging from RF link and antenna planning to the implementation of IoT protocols (LoRaWAN, NB‑IoT, MQTT) and embedded electronics. My approach combines applied research in signal propagation, filtering and spectrum management with the creation of connected devices that ensure high reliability and energy efficiency. I am passionate about tackling hardware‑software integration challenges, exploring new RF technologies and collaborating in multidisciplinary projects that drive digital transformation.',
+          'projects-kicker': 'Applied work', 'projects-title': 'Featured projects',
+          'projects-intro': 'Three areas that define my profile: drones, radiofrequency, embedded systems and high-value operational communications.',
+          'title-drones-iot': 'IoT Drone Air‑to‑Air Communication',
+          'summary-drones-iot': 'Autonomous drone-to-drone link with ESP32, real-time telemetry, gateway and web visualization for operational tracking.',
           'title-mmi': 'Integrated Optical Power Divider Design (MMI)',
-          'summary-mmi':'This work in integrated optics deals with the design of a multimode coupler (MMI), starting from the fundamentals of dielectric waveguide and directional coupler analysis. Constructive and destructive interference mechanisms for splitting incident light into multiple outputs are studied. Finally, key parameters-dimensions, refractive index and wavelength-are optimised to achieve an efficient, low-loss MMI for optical communications.',
-          'title-drones-iot': 'IoT Drone Air-to-Air Communication',
-          'summary-drones-iot': 'This project develops a fully autonomous link between two drones in flight, without human intervention, taking advantage of the versatility of ESP32 and the low latency of ESP-NOW. The architecture includes two UAVs exchanging coordinates in real time, a gateway in charge of centralising this data and a lightweight server that visualises the position of both vehicles. Thanks to its modular design, it is easy to add new nodes and sensors, and the optimised radio configuration ensures minimal power consumption during standby periods. Field tests confirm the millimetre-accurate synchronisation and robustness of the system in different ranges and adverse conditions.',
-          'title-antidron': 'Counter-Drone System for Electronic Warfare',
-          'summary-antidron': 'Counter-drone system focused on sector-based detection of aerial threats, reporting information to a C2 platform for real-time visualization and monitoring. The solution centralizes alerts, improves situational awareness and supports decision-making against potential drone incursions.'
+          'summary-mmi': 'Design and optimisation of a 1×2 multimode interference coupler for efficient optical power splitting.',
+          'title-antidron': 'Counter‑Drone System for Electronic Warfare',
+          'summary-antidron': 'Sector-based aerial threat detection through RF analysis and C2 reporting to improve situational awareness.',
+          'skills-kicker': 'Tech stack', 'skills-title': 'Technologies and areas of work',
+          'cv-kicker': 'Career', 'cv-title': 'Curriculum Vitae', 'cv-intro': 'Check the embedded resume or open it directly in the browser.',
+          'footer-text': '© 2025 David Esparza Berrozpe. All rights reserved.'
         }
       };
 
       const t = translations[lang];
-      for (const id in t) {
+      Object.keys(t).forEach(id => {
         const el = document.getElementById(id);
-        if (el) {
-          if (id === 'projects-list') {
-            el.innerHTML = t[id];
-          } else {
-            el.textContent = t[id];
-          }
-        }
-      }
+        if (el) el.textContent = t[id];
+      });
     }
   </script>
 </body>
