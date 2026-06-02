@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema Antidron - Detección RF</title>
+  <link rel="stylesheet" href="styles.css"> <!-- CSS compartido del portfolio -->
+</head>
+<body>
+  <!-- Header con mismo estilo de portfolio -->
+  <header>
+    <h1 id="name">Sistema Antidron basado en Detección RF</h1>
+    <p id="subtitle">Radiofrecuencia · Monitorización espectral · Detección sectorial</p>
+  </header>
+
+  <!-- Botón de volver atrás -->
+  <div class="back-container">
+    <button onclick="history.back()" class="back-button">← Volver</button>
+  </div>
+
+  <!-- Contenido profundo del trabajo -->
+  <section id="tfg" class="active">
+    <h2>Descripción del Proyecto</h2>
+    <p>
+      Este proyecto se centra en el desarrollo de un sistema antidron basado en la detección de señales
+      de radiofrecuencia. El objetivo principal es analizar el entorno radioeléctrico para identificar
+      actividad compatible con la presencia de drones, prestando especial atención a las bandas de
+      comunicación utilizadas habitualmente para control, telemetría y transmisión de datos.
+    </p>
+
+    <p>
+      A diferencia de otros enfoques basados en imagen o radar, este sistema trabaja directamente sobre
+      la señal RF capturada, permitiendo detectar actividad incluso cuando el dron no se encuentra en
+      línea visual directa. Para ello, se estudian características como la ocupación espectral, la evolución
+      temporal de la señal, la aparición de transmisiones intermitentes, la distribución de energía en
+      frecuencia y la actividad detectada por sectores.
+    </p>
+
+    <figure class="tfg-figure">
+      <img src="imgs/Spectogram_3D.png" alt="Espectrograma de señales RF detectadas">
+      <figcaption>
+        Figura 1. Ejemplo de espectrograma RF utilizado para visualizar actividad en frecuencia y tiempo.
+      </figcaption>
+    </figure>
+
+    <h2>Arquitectura Hardware</h2>
+    <p>
+      La arquitectura hardware se plantea de forma modular para facilitar la captura, el análisis y el
+      envío de información. El sistema puede dividirse en varios bloques: una etapa de antenas para la
+      recepción de señales, una etapa RF encargada de acondicionar y digitalizar la señal, una unidad de
+      procesamiento local y un módulo de comunicaciones para reportar los eventos detectados.
+    </p>
+
+    <p>
+      En el trabajo se han considerado diferentes elementos de arquitectura como antenas sectoriales,
+      receptores de radio definidos por software, unidades de procesamiento embebido, sistemas de
+      alimentación, comunicaciones internas y una interfaz de visualización. Esta separación permite
+      adaptar el sistema a distintos escenarios, ampliar la cobertura mediante nuevos sectores y mejorar
+      la capacidad de monitorización sin modificar toda la solución.
+    </p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Bloque</th>
+          <th>Función dentro del sistema</th>
+          <th>Resultado aportado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Antenas sectoriales</strong></td>
+          <td>Reciben señales procedentes de distintas zonas del entorno</td>
+          <td>Permiten asociar la detección a un sector concreto</td>
+        </tr>
+        <tr>
+          <td><strong>Etapa RF</strong></td>
+          <td>Captura y acondiciona las señales recibidas</td>
+          <td>Genera muestras útiles para su análisis espectral</td>
+        </tr>
+        <tr>
+          <td><strong>Procesamiento local</strong></td>
+          <td>Analiza la actividad radioeléctrica capturada</td>
+          <td>Extrae eventos, niveles de actividad y posibles alertas</td>
+        </tr>
+        <tr>
+          <td><strong>Comunicaciones</strong></td>
+          <td>Envía los resultados hacia una interfaz externa</td>
+          <td>Permite visualizar las detecciones en tiempo real</td>
+        </tr>
+        <tr>
+          <td><strong>Interfaz de visualización</strong></td>
+          <td>Presenta la información al operador</td>
+          <td>Muestra sectores, alertas, histórico y estado del sistema</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="label">Tabla 1. Bloques principales de la arquitectura hardware y funcional del sistema.</p>
+
+    <h2>Detección y Análisis RF</h2>
+    <p>
+      El núcleo del trabajo se encuentra en la detección RF. El sistema observa el espectro en busca de
+      patrones de actividad que puedan estar relacionados con comunicaciones de drones. Para ello, se
+      representa la señal tanto en frecuencia como en tiempo, lo que permite estudiar cuándo aparece una
+      transmisión, cuánto ancho de banda ocupa, en qué zona del espectro se concentra y cómo evoluciona
+      durante la captura.
+    </p>
+
+    <p>
+      El análisis se apoya en representaciones visuales como espectros de potencia, espectrogramas y
+      gráficas temporales de energía. Estas herramientas permiten comparar diferentes capturas, localizar
+      actividad relevante y diferenciar señales persistentes, señales intermitentes o transmisiones que
+      aparecen en distintos rangos de frecuencia. Sin entrar en algoritmos concretos, el sistema transforma
+      estas observaciones en eventos de detección comprensibles para el operador.
+    </p>
+
+    <figure class="tfg-figure">
+      <img src="imgs/Spectogram.png" alt="Análisis RF de una señal detectada">
+      <figcaption>
+        Figura 2. Representación del análisis RF: espectro, actividad temporal y detección de zonas de interés.
+      </figcaption>
+    </figure>
+
+    <h2>Detección Sectorial</h2>
+    <p>
+      Para mejorar la interpretación de las detecciones, el sistema se organiza por sectores. Cada sector
+      representa una zona de vigilancia asociada a una antena o a una dirección de observación. De esta
+      forma, cuando se detecta actividad RF sospechosa, no solo se registra la presencia de la señal, sino
+      también el sector desde el que se ha recibido con mayor intensidad.
+    </p>
+
+    <p>
+      Esta aproximación resulta especialmente útil en escenarios donde es necesario conocer la dirección
+      aproximada de una posible amenaza. La información sectorial permite priorizar zonas, comparar niveles
+      de actividad entre sectores y construir una visión más clara del entorno radioeléctrico.
+    </p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Información RF</th>
+          <th>Descripción</th>
+          <th>Utilidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Sector activo</strong></td>
+          <td>Zona desde la que se recibe actividad relevante</td>
+          <td>Ubicación aproximada de la amenaza</td>
+        </tr>
+        <tr>
+          <td><strong>Nivel de señal</strong></td>
+          <td>Intensidad relativa de la señal capturada</td>
+          <td>Comparación entre sectores y priorización</td>
+        </tr>
+        <tr>
+          <td><strong>Ocupación espectral</strong></td>
+          <td>Rango de frecuencias donde aparece actividad</td>
+          <td>Caracterización básica de la transmisión</td>
+        </tr>
+        <tr>
+          <td><strong>Actividad temporal</strong></td>
+          <td>Instantes en los que la señal aparece o desaparece</td>
+          <td>Seguimiento de la evolución de la detección</td>
+        </tr>
+        <tr>
+          <td><strong>Estado de alerta</strong></td>
+          <td>Nivel general asignado al evento detectado</td>
+          <td>Apoyo a la toma de decisiones</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="label">Tabla 2. Información generada a partir de la detección RF sectorial.</p>
+
+    <h2>Reporte y Visualización</h2>
+    <p>
+      Una vez generada la detección, el sistema reporta la información esencial para que pueda ser
+      representada en una interfaz de supervisión o en una plataforma C2. Esta parte no constituye el
+      núcleo del trabajo, pero permite que los resultados del análisis RF sean comprensibles y útiles para
+      un operador.
+    </p>
+
+    <p>
+      La visualización puede mostrar el sector afectado, el nivel de señal, el estado de la alerta y la
+      evolución temporal de los eventos. De esta manera, el análisis de radiofrecuencia se transforma en
+      información operativa, facilitando la interpretación rápida del entorno y el seguimiento de posibles
+      amenazas.
+    </p>
+
+    <figure class="tfg-figure">
+      <img src="imgs/C2_SDD.png" alt="Visualización de detecciones RF en interfaz C2">
+      <figcaption>
+        Figura 4. Visualización de las detecciones RF reportadas por sectores en una interfaz de supervisión.
+      </figcaption>
+    </figure>
+
+    <h2>Resultado Esperado</h2>
+    <p>
+      El resultado del proyecto es una solución orientada a la detección RF de drones, capaz de observar
+      el espectro, identificar actividad relevante, asociarla a sectores y generar eventos interpretables.
+      El sistema proporciona una base sólida para tareas de vigilancia radioeléctrica y mejora la conciencia
+      situacional en entornos donde la detección temprana de drones resulta crítica.
+    </p>
+
+    <p>
+      En conjunto, el trabajo combina arquitectura hardware, captura de señales, análisis espectral y
+      detección sectorial, manteniendo una estructura flexible que permite futuras ampliaciones en cobertura,
+      visualización e integración con sistemas externos.
+    </p>
+  </section>
+
+  <!-- Footer con el mismo estilo -->
+  <footer>
+    <p id="footer-text">© 2025 David Esparza. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
