@@ -74,15 +74,27 @@ body::before {
 
 .ambient-drone {
   position: fixed;
-  top: 12vh;
-  right: 10vw;
-  width: clamp(86px, 9vw, 138px);
-  z-index: -1;
+  top: 18vh;
+  right: 14vw;
+  width: 115px;
+  height: auto;
+  z-index: 1;
   pointer-events: none;
-  opacity: 0.3;
-  filter: drop-shadow(0 0 22px rgba(72, 245, 168, 0.18));
+  opacity: 0.22;
+  filter: drop-shadow(0 0 18px rgba(72, 245, 168, 0.25));
   mix-blend-mode: screen;
   animation: droneCruise 28s ease-in-out infinite alternate;
+}
+
+.ambient-drone * {
+  box-sizing: content-box;
+}
+
+.hero,
+main,
+footer {
+  position: relative;
+  z-index: 2;
 }
 .ambient-drone svg {
   display: block;
@@ -96,9 +108,12 @@ body::before {
   animation: rotorSpin 0.35s linear infinite;
 }
 .drone-rotor:nth-child(even) { animation-direction: reverse; }
-.rotor-ring, .drone-arm, .drone-body, .drone-tail {
-  fill: none;
-  stroke: rgba(157, 231, 255, 0.42);
+.rotor-ring,
+.drone-arm,
+.drone-body,
+.drone-tail {
+  fill: transparent !important;
+  stroke: rgba(157, 231, 255, 0.42) !important;
   stroke-width: 3.2;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -108,8 +123,9 @@ body::before {
   stroke: rgba(72, 245, 168, 0.4);
   stroke-width: 1.2;
 }
-.drone-body, .drone-tail {
-  fill: rgba(88, 166, 255, 0.08);
+.drone-body,
+.drone-tail {
+  fill: rgba(88, 166, 255, 0.08) !important;
 }
 .drone-core {
   fill: rgba(72, 245, 168, 0.82);
